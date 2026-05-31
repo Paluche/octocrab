@@ -1923,8 +1923,13 @@ impl Octocrab {
     }
 
     /// Creates a [`users::UserHandler`] for the specified user using the user ID
-    pub fn users_by_id(&self, user: impl Into<UserId>) -> users::UserHandler<'_> {
+    pub fn users_by_id( &self, user: impl Into<UserId>,) -> users::UserHandler<'_> {
         users::UserHandler::new(self, UserRef::ById(user.into()))
+    }
+
+    /// Creates a [`users::UserHandler`] for the currently authenticated user.
+    pub fn authenticated_user(&self) -> users::UserHandler<'_> {
+        users::UserHandler::new(self, UserRef::Authenticated)
     }
 
     /// Creates a [`workflows::WorkflowsHandler`] for the specified repository that allows
@@ -2075,7 +2080,7 @@ pub enum GraphqlPathSegment {
 
 /// # HTTP Methods
 /// A collection of different of HTTP methods to use with Octocrab's
-/// configuration (Authenication, etc.). All of the HTTP methods (`get`, `post`,
+/// configuration (Authentication, etc.). All of the HTTP methods (`get`, `post`,
 /// etc.) perform some amount of pre-processing such as making relative urls
 /// absolute, and post processing such as mapping any potential GitHub errors
 /// into `Err()` variants, and deserializing the response body.
