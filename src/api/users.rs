@@ -28,6 +28,7 @@ mod user_ssh_signing_keys;
 pub(crate) enum UserRef {
     ByString(String),
     ById(UserId),
+    Authenticated,
 }
 
 impl std::fmt::Display for UserRef {
@@ -36,6 +37,8 @@ impl std::fmt::Display for UserRef {
             UserRef::ByString(str) => write!(f, "users/{str}"),
 
             UserRef::ById(id) => write!(f, "user/{id}"),
+
+            UserRef::Authenticated => write!(f, "user"),
         }
     }
 }

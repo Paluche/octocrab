@@ -1355,7 +1355,12 @@ impl Octocrab {
     }
 
     /// Creates a [`users::UserHandler`] for the specified user using the user ID
-    pub fn users_by_id(&self, user: impl Into<UserId>) -> users::UserHandler<'_> {
+    pub fn users_by_id( &self, user: impl Into<UserId>,) -> users::UserHandler<'_> {
+        users::UserHandler::new(self, UserRef::ById(user.into()))
+    }
+
+    /// Creates a [`users::UserHandler`] for the currently authenticated user.
+    pub fn authenticated_user(&self) -> users::UserHandler<'_> {
         users::UserHandler::new(self, UserRef::ById(user.into()))
     }
 
